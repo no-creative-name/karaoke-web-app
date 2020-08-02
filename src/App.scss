@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.lyrics {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.line {
+  font-size: 100px;
+}

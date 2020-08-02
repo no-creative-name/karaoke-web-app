@@ -1,0 +1,24 @@
+.song-part {
+    position: relative;
+    width: 80vw;
+    height: 100vh;
+
+    &__pitches,
+    &__lyrics {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+
+        >*:not(:first-child) {
+            margin-left: 10px;
+        }
+    }
+
+    &__pitches {
+        height: 80%;
+    }
+
+    &__lyrics {
+        justify-content: center;
+    }
+}

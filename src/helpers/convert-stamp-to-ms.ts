@@ -1,0 +1,1 @@
+export const convertStampToMs = (stamp: number, bpm: number) => stamp / bpm / 4 * 60 * 1000;

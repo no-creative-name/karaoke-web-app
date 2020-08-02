@@ -1,0 +1,21 @@
+.lyric-line {
+    display: block;
+    height: 20px;
+    font-size: 60px;
+
+    &--active {
+        animation: makeLineActive 1s;
+    }
+}
+
+@keyframes makeLineActive {
+    0% {
+      transform:  translate(0px,0px)  ;
+    }
+    13% {
+      transform:  translate(0px,-20px)  ;
+    }
+    100% {
+      transform:  translate(0px,0px)  ;
+    }
+}
