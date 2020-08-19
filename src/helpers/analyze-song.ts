@@ -42,7 +42,8 @@ export const analyzeSong = (songDefinition: string): SongInfo => {
         .filter(line => line.charAt(0) !== '#' && line !== '')
         .map(line => {
             const lineParts = line.split(/[ ,]+/);
-            if (lineParts.length === 5) {
+    
+            if (lineParts.length >= 5) {
                 return {
                     type: 'text',
                     stamp: parseInt(lineParts[1]),

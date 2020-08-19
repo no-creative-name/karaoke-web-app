@@ -10,6 +10,7 @@ interface SongContainerProps {
 }
 
 export const SongContainer: React.FC<SongContainerProps> = ({ songInfo, currentMs }) => {
+
   const getCurrentLines = (lines: SongLine[], ms: number): TextLine[] => {
     let lineIdx: number | undefined = undefined;
     lines.forEach((line, idx) => {
@@ -51,7 +52,7 @@ export const SongContainer: React.FC<SongContainerProps> = ({ songInfo, currentM
   return (
     <div className="song-container">
       <div className="lyrics">
-        <SongPart lines={getCurrentLines(songInfo.lines, currentMs)} currentMs={currentMs}></SongPart>
+        <SongPart lines={getCurrentLines(songInfo.lines, currentMs)} nextLines={getCurrentLines(songInfo.lines, currentMs + 500)} currentMs={currentMs}></SongPart>
       </div>
     </div>
   )

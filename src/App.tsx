@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { SongContainer } from './components/song-container';
-import { song1 as song } from './mock';
+import { song2 as song } from './mock';
 import { analyzeSong, SongInfo } from './helpers/analyze-song';
 
 export const App: React.FC = () => {
