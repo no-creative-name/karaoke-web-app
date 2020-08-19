@@ -1,27 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import './App.scss';
-import { SongContainer } from './components/song-container';
-import { song2 as song } from './mock';
+import { MainMenu } from './pages/main-menu';
+import { Level } from './pages/level';
 import { analyzeSong, SongInfo } from './helpers/analyze-song';
 
 export const App: React.FC = () => {
-  const [songInfo, setSongInfo] = useState<SongInfo>();
+  const [songInfo, setSongInfo] = useState<SongInfo>({
+    title: '',
+    artist: '',
+    bpm: 0,
+    gap: 0,
+    lines: [],
+  });
   const [startMs, setStartMs] = useState<number>(0);
   const [currentMs, setCurrentMs] = useState<number>(0);
+  const [playing, setPlaying] = useState<boolean>(false);
 
   useEffect(() => {
-    setStartMs((new Date()).getTime());
-    setSongInfo(analyzeSong(song));
-    setInterval(() => setCurrentMs((new Date()).getTime()), 1);
-  }, []);
+    if (playing) {
+      setStartMs((new Date()).getTime());
+      setInterval(() => setCurrentMs((new Date()).getTime()), 1);
+    }
+  }, [playing])
+
+  const playLevel = (song: SongInfo) => {
+    setSongInfo(song);
+    setPlaying(true);
+  }
 
   return (
     <div className="App">
-      {
-        songInfo ? 
-        <SongContainer currentMs={currentMs - startMs} songInfo={songInfo}>
-        </SongContainer> : ''
-      }
+      {playing ?
+        <Level currentMs={currentMs - startMs} songInfo={songInfo}>
+        </Level> :
+        <MainMenu onPlay={playLevel}></MainMenu>}
     </div>
   );
 }

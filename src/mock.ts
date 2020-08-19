@@ -1,4 +1,4 @@
-export const song1 = `#ARTIST:Atomic Kitten
+const song1 = `#ARTIST:Atomic Kitten
 #TITLE:Eternal Flame
 #MP3:Atomic Kitten - Eternal Flame.mp3
 #EDITION:Ultrastar
@@ -307,7 +307,7 @@ export const song1 = `#ARTIST:Atomic Kitten
 : 1748 10 19 me
 E`;
 
-export const song2 = `
+const song2 = `
 #ARTIST:ABBA
 #TITLE:Money Money Money
 #MP3:ABBA - Money Money Money.mp3
@@ -712,7 +712,7 @@ export const song2 = `
 E
 `
 
-export const song3 = `
+const song3 = `
 #ARTIST:Culcha Candela
 #TITLE:Hamma
 #MP3:Culcha Candela - Hamma.mp3
@@ -1709,3 +1709,7 @@ F 4481 6 36  mama
 : 4565 5 57 ma
 E
 `
+
+export const songs = [
+    song1, song2, song3
+];
