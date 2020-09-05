@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { MainMenu } from './pages/main-menu';
 import { Level } from './pages/level';
-import { analyzeSong, SongInfo } from './helpers/analyze-song';
+import { SongInfo } from './helpers/analyze-song';
+import {
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
+import history from './helpers/history';
 
 export const App: React.FC = () => {
   const [songInfo, setSongInfo] = useState<SongInfo>({
@@ -12,28 +18,32 @@ export const App: React.FC = () => {
     gap: 0,
     lines: [],
   });
-  const [startMs, setStartMs] = useState<number>(0);
-  const [currentMs, setCurrentMs] = useState<number>(0);
-  const [playing, setPlaying] = useState<boolean>(false);
+  const history = useHistory();
 
-  useEffect(() => {
-    if (playing) {
-      setStartMs((new Date()).getTime());
-      setInterval(() => setCurrentMs((new Date()).getTime()), 1);
+  /*useEffect(() => {
+    const lastLine = songInfo.lines[songInfo.lines.length - 1];
+    if (lastLine && currentMs - startMs > lastLine.stampMs) {
+      history.push('/');
     }
-  }, [playing])
+  }, [currentMs]);*/
 
   const playLevel = (song: SongInfo) => {
     setSongInfo(song);
-    setPlaying(true);
+
+    history.push('/level');
   }
 
   return (
     <div className="App">
-      {playing ?
-        <Level currentMs={currentMs - startMs} songInfo={songInfo}>
-        </Level> :
-        <MainMenu onPlay={playLevel}></MainMenu>}
+      <Switch>
+        <Route path="/level">
+          <Level songInfo={songInfo}>
+          </Level>
+        </Route>
+        <Route exact path="/">
+          <MainMenu onPlay={playLevel}></MainMenu>
+        </Route>
+      </Switch>
     </div>
   );
 }

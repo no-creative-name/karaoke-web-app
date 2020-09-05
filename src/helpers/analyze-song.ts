@@ -75,8 +75,8 @@ export const analyzeSong = (songDefinition: string): SongInfo => {
     return {
         title: mainInfo.title,
         artist: mainInfo.artist,
-        bpm: mainInfo.bpm,
-        gap: mainInfo.gap,
+        bpm: parseInt(mainInfo.bpm),
+        gap: parseInt(mainInfo.gap),
         lines: textLines,
     }
 }
