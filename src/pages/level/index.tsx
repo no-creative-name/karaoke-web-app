@@ -4,7 +4,6 @@ import { SongPart } from '../../components/song-part';
 import { convertMsToStamp } from '../../helpers/convert-ms-to-stamp';
 import { useHistory } from 'react-router-dom';
 import { Countdown } from '../../components/countdown';
-import { convertStampToMs } from '../../helpers/convert-stamp-to-ms';
 
 interface LevelProps {
     songInfo: SongInfo;

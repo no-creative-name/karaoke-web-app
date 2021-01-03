@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { count } from 'console';
 
 interface CountdownProps {
     countFrom: number;
@@ -17,7 +16,7 @@ export const Countdown: React.FC<CountdownProps> = ({ countFrom, onCountdownDone
                 onCountdownDone();
             }
         }, 1000)
-    }, [currentCount])
+    }, [currentCount, onCountdownDone])
 
     return (
         <div>

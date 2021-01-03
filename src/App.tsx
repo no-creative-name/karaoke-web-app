@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { MainMenu } from './pages/main-menu';
 import { Level } from './pages/level';
@@ -8,7 +8,6 @@ import {
   Route,
   useHistory,
 } from "react-router-dom";
-import history from './helpers/history';
 
 export const App: React.FC = () => {
   const [songInfo, setSongInfo] = useState<SongInfo>({
