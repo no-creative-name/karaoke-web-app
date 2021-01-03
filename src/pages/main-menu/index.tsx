@@ -24,7 +24,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({ onPlay }) => {
         <React.Fragment>
             <select ref={selectRef}>
                 {
-                    analyzedSongs?.map(song => <option value={song.title}>{song.title}</option>)
+                    analyzedSongs?.map(song => <option key={song.title} value={song.title}>{song.title}</option>)
                 }
             </select>
             <button onClick={onPlayButtonClick}>Play</button>

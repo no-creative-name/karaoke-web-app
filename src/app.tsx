@@ -29,13 +29,6 @@ export const App: React.FC = () => {
   });
   const history = useHistory();
 
-  /*useEffect(() => {
-    const lastLine = songInfo.lines[songInfo.lines.length - 1];
-    if (lastLine && currentMs - startMs > lastLine.stampMs) {
-      history.push('/');
-    }
-  }, [currentMs]);*/
-
   const playLevel = (song: SongInfo) => {
     setSongInfo(song);
 
