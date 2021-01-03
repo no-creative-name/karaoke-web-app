@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './App.scss';
 import { MainMenu } from './pages/main-menu';
 import { Level } from './pages/level';
 import { SongInfo } from './helpers/analyze-song';
@@ -8,6 +7,17 @@ import {
   Route,
   useHistory,
 } from "react-router-dom";
+import styled from 'styled-components';
+
+const AppWrapper = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+`
 
 export const App: React.FC = () => {
   const [songInfo, setSongInfo] = useState<SongInfo>({
@@ -33,7 +43,7 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="App">
+    <AppWrapper>
       <Switch>
         <Route path="/level">
           <Level songInfo={songInfo}>
@@ -43,7 +53,7 @@ export const App: React.FC = () => {
           <MainMenu onPlay={playLevel}></MainMenu>
         </Route>
       </Switch>
-    </div>
+    </AppWrapper>
   );
 }
 

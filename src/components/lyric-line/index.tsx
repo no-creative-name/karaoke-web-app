@@ -1,15 +1,30 @@
-import React from 'react';
-import './styles.scss';
+import styled from 'styled-components';
 
 interface LyricLineProps {
-    active?: boolean;
-    preview?: boolean;
+    isActive?: boolean;
+    isPreview?: boolean;
 }
 
-export const LyricLine: React.FC<LyricLineProps> = ({ active, preview, children }) => {
-    return (
-        <div className={`lyric-line ${active ? 'lyric-line--active' : ''} ${preview ? 'lyric-line--preview' : ''}`}>
-            {children}
-        </div>
-    )
-}
+export const LyricLine = styled.div<LyricLineProps>`
+    display: block;
+    font-size: 60px;
+    ${props => props.isActive ? `
+        animation: makeLineActive 1s;
+    ` : ''}
+    ${props => props.isPreview ? `
+        font-size: 40px;
+        opacity: 0.5;
+    ` : ''}
+
+    @keyframes makeLineActive {
+        0% {
+        transform:  translate(0px,0px)  ;
+        }
+        13% {
+        transform:  translate(0px,-20px)  ;
+        }
+        100% {
+        transform:  translate(0px,0px)  ;
+        }
+    }
+`

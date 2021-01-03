@@ -1,14 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import './styles.scss';
 import { TextLine } from "../../helpers/analyze-song";
 import { PitchLine } from '../pitch-line';
 import { LyricLine } from '../lyric-line';
+import styled from 'styled-components';
 
 interface SongPartProps {
     lines: TextLine[];
     nextLines: TextLine[];
     currentMs: number;
 }
+
+export const StyledSongPart = styled.div`
+    position: relative;
+    height: 100vh;
+    padding: 0 10%;
+`
+
+export const PitchesWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: 80%;
+`
+
+export const LyricsWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`
+
+export const LyricsGroup = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    > *:not(:first-child) {
+        margin-left: 10px;
+    }
+`
 
 export const SongPart: React.FC<SongPartProps> = ({ lines, nextLines, currentMs }) => {
     const [lowestPitch, setLowestPitch] = useState<number>(0);
@@ -21,7 +52,7 @@ export const SongPart: React.FC<SongPartProps> = ({ lines, nextLines, currentMs 
             const durations = lines.map(line => line.durationMs);
             setLowestPitch(pitches.reduce((lowest, current) => current < lowest ? current : lowest));
             setHighestPitch(pitches.reduce((highest, current) => current > highest ? current : highest));
-            setTotalDuration(durations.reduce((duration, current) => current));
+            setTotalDuration(durations.reduce((duration, current) => duration + current));
         }
 
     }, [lines]);
@@ -37,18 +68,18 @@ export const SongPart: React.FC<SongPartProps> = ({ lines, nextLines, currentMs 
     }
 
     return (
-        <div className="song-part">
-            <div className="song-part__pitches">
+        <StyledSongPart>
+            <PitchesWrapper>
                 {lines.map(line => <PitchLine width={`${line.durationMs / totalDuration * 100}%`} y={`${-((line.pitch - lowestPitch) / (highestPitch - lowestPitch) * 500)}%`} percentage={`${getLinePercentage(line)}%`}></PitchLine>)}
-            </div>
-            <div className="song-part__lyrics">
-                <div className="song-part__activeLyrics">
-                    {lines.map(line => <LyricLine active={getLinePercentage(line) > 0}>{line.text}</LyricLine>)}
-                </div>
-                <div className="song-part__previewLyrics">
-                    {JSON.stringify(lines) !== JSON.stringify(nextLines) ? nextLines.map(line => <LyricLine preview={true}>{line.text}</LyricLine>) : ''}
-                </div>
-            </div>
-        </div>
+            </PitchesWrapper>
+            <LyricsWrapper>
+                <LyricsGroup>
+                    {lines.map(line => <LyricLine isActive={getLinePercentage(line) > 0}>{line.text}</LyricLine>)}
+                </LyricsGroup>
+                <LyricsGroup>
+                    {JSON.stringify(lines) !== JSON.stringify(nextLines) ? nextLines.map(line => <LyricLine isPreview={true}>{line.text}</LyricLine>) : ''}
+                </LyricsGroup>
+            </LyricsWrapper>
+        </StyledSongPart>
     )
 }
