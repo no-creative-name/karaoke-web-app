@@ -6,7 +6,7 @@ import { TextPart } from '../../interfaces';
 
 interface SongScreenProps {
     line: TextPart[];
-    nextLine: TextPart[];
+    upcomingLines: TextPart[][];
     currentMs: number;
 }
 
@@ -42,7 +42,7 @@ export const LyricLine = styled.div`
     }
 `
 
-export const SongScreen: React.FC<SongScreenProps> = ({ line, nextLine, currentMs }) => {
+export const SongScreen: React.FC<SongScreenProps> = ({ line, upcomingLines, currentMs }) => {
     const [lowestPitch, setLowestPitch] = useState<number>(0);
     const [highestPitch, setHighestPitch] = useState<number>(0);
     const [totalDuration, setTotalDuration] = useState<number>(0);
@@ -96,13 +96,17 @@ export const SongScreen: React.FC<SongScreenProps> = ({ line, nextLine, currentM
                         </LyricWord>)}
                 </LyricLine>
                 <LyricLine>
-                    {JSON.stringify(line) !== JSON.stringify(nextLine)
-                        ? nextLine.map(part =>
+                    {JSON.stringify(line) !== JSON.stringify(upcomingLines[0])
+                        ? (upcomingLines[0] || []).map(part =>
                             <LyricWord
                                 isPreview={true}>
                                 {part.text}
                             </LyricWord>)
-                        : ''}
+                        : (upcomingLines[1] || []).map(part =>
+                            <LyricWord
+                                isPreview={true}>
+                                {part.text}
+                            </LyricWord>)}
                 </LyricLine>
             </LyricsWrapper>
         </StyledSongScreen>

@@ -9,6 +9,7 @@ import { getFirstTextPartBefore } from '../../helpers/get-first-text-part-before
 import { getIndexOfFirstPartAfter } from '../../helpers/get-index-of-first-part-after';
 import { SongInfo, SongPart, TextPart } from '../../interfaces';
 import { AbsoluteButton } from '../../components/absolute-button';
+import { getUpcomingLines } from '../../helpers/get-upcoming-lines';
 
 interface LevelProps {
     songInfo: SongInfo;
@@ -47,7 +48,7 @@ export const Level: React.FC<LevelProps> = ({ songInfo }) => {
                     </Countdown>
                     : <SongScreen
                         line={getCurrentLine(songInfo.parts, (currentMs - startMs))}
-                        nextLine={getCurrentLine(songInfo.parts, (currentMs - startMs) + 500)}
+                        upcomingLines={getUpcomingLines(songInfo.parts, (currentMs - startMs), 5000) || []}
                         currentMs={(currentMs - startMs)}>
                     </SongScreen>
             }
