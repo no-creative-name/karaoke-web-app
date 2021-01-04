@@ -48,7 +48,7 @@ export const Level: React.FC<LevelProps> = ({ songInfo }) => {
                     </Countdown>
                     : <SongScreen
                         line={getCurrentLine(songInfo.parts, (currentMs - startMs))}
-                        upcomingLines={getUpcomingLines(songInfo.parts, (currentMs - startMs), 5000) || []}
+                        upcomingLines={getUpcomingLines(songInfo.parts, (currentMs - startMs), 2000) || []}
                         currentMs={(currentMs - startMs)}>
                     </SongScreen>
             }
