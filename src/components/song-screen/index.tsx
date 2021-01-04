@@ -49,14 +49,16 @@ export const SongScreen: React.FC<SongScreenProps> = ({ line, nextLine, currentM
 
     useEffect(() => {
         const pitches = line.map(part => part.pitch);
-        setLowestPitch(pitches.reduce((lowest, current) => current < lowest ? current : lowest));
-        setHighestPitch(pitches.reduce((highest, current) => current > highest ? current : highest));
+        setLowestPitch(pitches.reduce((lowest, current) => current < lowest ? current : lowest, 0));
+        setHighestPitch(pitches.reduce((highest, current) => current > highest ? current : highest, 0));
 
         let totalDuration = 0;
 
         line.forEach((part, index) => {
             if (index < line.length - 1) {
                 totalDuration += part.durationMs + (line[index + 1].stampMs - part.stampMs + part.durationMs);
+            } else {
+                totalDuration += part.durationMs;
             }
         });
 
@@ -76,14 +78,13 @@ export const SongScreen: React.FC<SongScreenProps> = ({ line, nextLine, currentM
     return (
         <StyledSongScreen>
             <PitchesWrapper>
-                {line.map((part, index) => {
-                    return <PitchLine
-                        width={`${part.durationMs / totalDuration * 100}%`}
-                        marginRight={line[index + 1] ? `${(line[index + 1].stampMs - part.stampMs + part.durationMs) / totalDuration * 100}%` : ''}
-                        y={`${-((part.pitch - lowestPitch) / (highestPitch - lowestPitch) * 500)}%`}
-                        percentage={`${getLinePercentage(part)}%`}
-                    ></PitchLine>
-                })}
+                {line.map((part, index) => <PitchLine
+                    width={`${part.durationMs / totalDuration * 100}%`}
+                    marginRight={line[index + 1] ? `${(line[index + 1].stampMs - part.stampMs + part.durationMs) / totalDuration * 100}%` : ''}
+                    y={`${-((part.pitch - lowestPitch) / (highestPitch - lowestPitch) * 500)}%`}
+                    percentage={`${getLinePercentage(part)}%`}
+                    isSpoken={part.isSpoken}
+                ></PitchLine>)}
             </PitchesWrapper>
             <LyricsWrapper>
                 <LyricLine>

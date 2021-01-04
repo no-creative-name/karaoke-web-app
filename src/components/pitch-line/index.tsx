@@ -6,15 +6,16 @@ interface PitchLineProps {
     marginRight: string;
     y: string;
     percentage: string;
+    isSpoken: boolean;
 }
 
 export const StyledPitchLine = styled.div<PitchLineProps>`
     display: block;
     width: ${props => props.width};
     margin-right: ${props => props.marginRight};
-    height: 20px;
+    height: ${props => props.isSpoken ? '40px' : '20px'};
     transform: translateY(${props => props.y});
-    background-color: darkred;
+    background-color: ${props => props.isSpoken ? 'grey' : 'darkred'};
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 7px 10px 5px rgba(0,0,0,0.12);
@@ -26,9 +27,15 @@ export const StyledPitchLine = styled.div<PitchLineProps>`
     }
 `
 
-export const PitchLine: React.FC<PitchLineProps> = ({ width, y, percentage, marginRight }) => {
+export const PitchLine: React.FC<PitchLineProps> = ({ width, y, percentage, marginRight, isSpoken }) => {
     return (
-        <StyledPitchLine width={width} y={y} percentage={percentage} marginRight={marginRight}>
+        <StyledPitchLine
+            width={width}
+            y={y}
+            percentage={percentage}
+            marginRight={marginRight}
+            isSpoken={isSpoken}
+        >
             <span style={{
                 width: percentage
             }}></span>
