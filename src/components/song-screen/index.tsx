@@ -78,7 +78,6 @@ export const SongScreen: React.FC<SongScreenProps> = ({ line, nextLine, currentM
             <PitchesWrapper>
                 {line.map((part, index) => {
                     return <PitchLine
-                        key={part.text}
                         width={`${part.durationMs / totalDuration * 100}%`}
                         marginRight={line[index + 1] ? `${(line[index + 1].stampMs - part.stampMs + part.durationMs) / totalDuration * 100}%` : ''}
                         y={`${-((part.pitch - lowestPitch) / (highestPitch - lowestPitch) * 500)}%`}
@@ -90,7 +89,6 @@ export const SongScreen: React.FC<SongScreenProps> = ({ line, nextLine, currentM
                 <LyricLine>
                     {line.map(part =>
                         <LyricWord
-                            key={part.text}
                             isActive={getLinePercentage(part) > 0}
                         >
                             {part.text}
@@ -100,7 +98,6 @@ export const SongScreen: React.FC<SongScreenProps> = ({ line, nextLine, currentM
                     {JSON.stringify(line) !== JSON.stringify(nextLine)
                         ? nextLine.map(part =>
                             <LyricWord
-                                key={part.text}
                                 isPreview={true}>
                                 {part.text}
                             </LyricWord>)
