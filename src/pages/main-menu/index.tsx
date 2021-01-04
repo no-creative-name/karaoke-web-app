@@ -10,6 +10,7 @@ interface MainMenuProps {
 }
 
 const StyledSelect = styled.select`
+    width: 80vw;
     margin-bottom: 50px;
 `
 
@@ -35,7 +36,7 @@ export const MainMenu: React.FC<MainMenuProps> = ({ onPlay }) => {
                         <option
                             key={song.title}
                             value={song.title}>
-                            {song.title}
+                            {song.artist} - {song.title}
                         </option>)
                 }
             </StyledSelect>
