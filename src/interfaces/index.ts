@@ -16,8 +16,8 @@ export interface TextPart {
   duration: number;
   durationMs: number;
   pitch: number;
-  gold?: boolean;
-  spoken?: boolean;
+  isGold?: boolean;
+  isSpoken?: boolean;
 }
 
 export interface PausePart {

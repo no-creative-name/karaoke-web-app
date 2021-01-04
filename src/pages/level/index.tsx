@@ -8,6 +8,7 @@ import { getEndIndexOfLine } from '../../helpers/get-end-index-of-line';
 import { getFirstTextPartBefore } from '../../helpers/get-first-text-part-before';
 import { getIndexOfFirstPartAfter } from '../../helpers/get-index-of-first-part-after';
 import { SongInfo, SongPart, TextPart } from '../../interfaces';
+import { AbsoluteButton } from '../../components/absolute-button';
 
 interface LevelProps {
     songInfo: SongInfo;
@@ -22,7 +23,7 @@ export const Level: React.FC<LevelProps> = ({ songInfo }) => {
     useEffect(() => {
         if (levelStarted) {
             setStartMs((new Date()).getTime());
-            setInterval(() => setCurrentMs((new Date()).getTime()), 1);
+            setInterval(() => setCurrentMs((new Date()).getTime()), 5);
         }
     }, [levelStarted]);
 
@@ -51,7 +52,7 @@ export const Level: React.FC<LevelProps> = ({ songInfo }) => {
                     </SongScreen>
             }
 
-            <button onClick={() => history.push('/')}>Back to Menu</button>
+            <AbsoluteButton onClick={() => history.push('/')}>Back to Menu</AbsoluteButton>
         </React.Fragment>
     )
 }

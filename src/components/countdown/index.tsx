@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 interface CountdownProps {
     countFrom: number;
     onCountdownDone: () => void;
 }
+
+const CountdownNumber = styled.span`
+    font-size: 100px;
+`
 
 export const Countdown: React.FC<CountdownProps> = ({ countFrom, onCountdownDone }) => {
     const [currentCount, setCurrentCount] = useState<number>(countFrom);
@@ -20,7 +25,7 @@ export const Countdown: React.FC<CountdownProps> = ({ countFrom, onCountdownDone
 
     return (
         <div>
-            <span>{currentCount}</span>
+            <CountdownNumber>{currentCount}</CountdownNumber>
         </div>
     )
 }

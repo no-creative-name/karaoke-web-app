@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 interface PitchLineProps {
     width: string;
+    marginRight: string;
     y: string;
     percentage: string;
 }
@@ -10,6 +11,7 @@ interface PitchLineProps {
 export const StyledPitchLine = styled.div<PitchLineProps>`
     display: block;
     width: ${props => props.width};
+    margin-right: ${props => props.marginRight};
     height: 20px;
     transform: translateY(${props => props.y});
     background-color: darkred;
@@ -24,10 +26,12 @@ export const StyledPitchLine = styled.div<PitchLineProps>`
     }
 `
 
-export const PitchLine: React.FC<PitchLineProps> = ({ width, y, percentage }) => {
+export const PitchLine: React.FC<PitchLineProps> = ({ width, y, percentage, marginRight }) => {
     return (
-        <StyledPitchLine width={width} y={y} percentage={percentage}>
-            <span style={{width: percentage}}></span>
+        <StyledPitchLine width={width} y={y} percentage={percentage} marginRight={marginRight}>
+            <span style={{
+                width: percentage
+            }}></span>
         </StyledPitchLine>
     )
 }
