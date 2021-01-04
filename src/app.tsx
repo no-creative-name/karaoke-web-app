@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { MainMenu } from './pages/main-menu';
 import { Level } from './pages/level';
-import { SongInfo } from './helpers/analyze-song';
 import {
   Switch,
   Route,
   useHistory,
 } from "react-router-dom";
 import styled from 'styled-components';
+import { SongInfo } from './interfaces';
 
 const AppWrapper = styled.div`
   text-align: center;
@@ -25,7 +25,7 @@ export const App: React.FC = () => {
     artist: '',
     bpm: 0,
     gap: 0,
-    lines: [],
+    parts: [],
   });
   const history = useHistory();
 

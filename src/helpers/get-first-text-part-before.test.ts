@@ -1,11 +1,11 @@
-import { getFirstTextLineBefore } from "./get-first-text-line-before";
+import { getFirstTextPartBefore } from "./get-first-text-part-before";
 
 describe('getFirstTextLineBefore', () => {
-  test('returns 0 when lines array is empty', () => {
-    expect(getFirstTextLineBefore([], 0)).toBe(0);
+  test('returns 0 when line array is empty', () => {
+    expect(getFirstTextPartBefore([], 0)).toBe(0);
   });
   test('returns index of given index when given index is of type text', () => {
-    expect(getFirstTextLineBefore(([{
+    expect(getFirstTextPartBefore(([{
       type: 'text'
     },{
       type: 'pause'
@@ -19,8 +19,8 @@ describe('getFirstTextLineBefore', () => {
       type: 'pause'
     }] as any), 5)).toBe(2);
   });
-  test('returns index of first line of type text before given index', () => {
-    expect(getFirstTextLineBefore(([{
+  test('returns index of first part of type text before given index', () => {
+    expect(getFirstTextPartBefore(([{
       type: 'text'
     },{
       type: 'pause'

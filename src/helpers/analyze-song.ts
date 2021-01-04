@@ -1,34 +1,5 @@
+import { SongInfo } from '../interfaces';
 import { convertStampToMs } from './convert-stamp-to-ms';
-
-export interface SongInfo {
-    title: string;
-    artist: string;
-    bpm: number;
-    gap: number;
-    lines: SongLine[];
-}
-
-export type SongLine = TextLine | PauseLine;
-
-export interface TextLine {
-    type: string;
-    stamp: number;
-    stampMs: number;
-    text: string;
-    duration: number;
-    durationMs: number;
-    pitch: number;
-    gold?: boolean;
-    spoken?: boolean;
-}
-
-export interface PauseLine {
-    type: string;
-    stamp: number;
-    stampMs: number;
-    stampEnd?: number;
-    stampEndMs?: number;
-}
 
 export const analyzeSong = (songDefinition: string): SongInfo => {
     const lines = songDefinition.split('\n');
@@ -38,7 +9,7 @@ export const analyzeSong = (songDefinition: string): SongInfo => {
     ]));
     const mainInfo = Object.fromEntries(mainInfoArray);
 
-    const textLines = lines
+    const textParts = lines
         .filter(line => line.charAt(0) !== '#' && line !== '')
         .map(line => {
             const lineParts = line.split(/[ ,]+/);
@@ -77,6 +48,6 @@ export const analyzeSong = (songDefinition: string): SongInfo => {
         artist: mainInfo.artist,
         bpm: parseInt(mainInfo.bpm),
         gap: parseInt(mainInfo.gap),
-        lines: textLines,
+        parts: textParts,
     }
 }

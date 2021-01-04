@@ -1,11 +1,11 @@
-import { getIndexOfFirstLineAfter } from "./get-index-of-first-line-after";
+import { getIndexOfFirstPartAfter } from "./get-index-of-first-part-after";
 
-describe('getIndexOfFirstLineAfter', () => {
-  test('returns -1 when lines array is empty', () => {
-    expect(getIndexOfFirstLineAfter([], 0)).toBe(-1);
+describe('getIndexOfFirstPartAfter', () => {
+  test('returns -1 when line array is empty', () => {
+    expect(getIndexOfFirstPartAfter([], 0)).toBe(-1);
   });
   test('returns -1 when given stamp is after all line stamps', () => {
-    expect(getIndexOfFirstLineAfter(([{
+    expect(getIndexOfFirstPartAfter(([{
       type: 'text',
       stamp: 100
     },{
@@ -22,8 +22,8 @@ describe('getIndexOfFirstLineAfter', () => {
       stamp: 500
     }] as any), 600)).toBe(-1);
   });
-  test('returns index of first line after given stamp', () => {
-    expect(getIndexOfFirstLineAfter(([{
+  test('returns index of first part after given stamp', () => {
+    expect(getIndexOfFirstPartAfter(([{
       type: 'text',
       stamp: 100
     },{

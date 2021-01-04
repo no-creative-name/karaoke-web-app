@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { SongInfo, SongLine, TextLine } from '../../helpers/analyze-song';
-import { SongPart } from '../../components/song-part';
+import { SongScreen } from '../../components/song-screen';
 import { convertMsToStamp } from '../../helpers/convert-ms-to-stamp';
 import { useHistory } from 'react-router-dom';
 import { Countdown } from '../../components/countdown';
-import { getStartIndexOfLineGroup } from '../../helpers/get-start-index-of-line-group';
-import { getEndIndexOfLineGroup } from '../../helpers/get-end-index-of-line-group';
-import { getFirstTextLineBefore } from '../../helpers/get-first-text-line-before';
-import { getIndexOfFirstLineAfter } from '../../helpers/get-index-of-first-line-after';
+import { getStartIndexOfLine } from '../../helpers/get-start-index-of-line';
+import { getEndIndexOfLine } from '../../helpers/get-end-index-of-line';
+import { getFirstTextPartBefore } from '../../helpers/get-first-text-part-before';
+import { getIndexOfFirstPartAfter } from '../../helpers/get-index-of-first-part-after';
+import { SongInfo, SongPart, TextPart } from '../../interfaces';
 
 interface LevelProps {
     songInfo: SongInfo;
@@ -26,14 +26,14 @@ export const Level: React.FC<LevelProps> = ({ songInfo }) => {
         }
     }, [levelStarted]);
 
-    const getCurrentLines = (lines: SongLine[], ms: number): TextLine[] => {
-        const firstLineIndex = getIndexOfFirstLineAfter(lines, convertMsToStamp(ms, songInfo.bpm));
-        const firstTextLineIndex = getFirstTextLineBefore(lines, firstLineIndex);
+    const getCurrentLine = (line: SongPart[], ms: number): TextPart[] => {
+        const firstLineIndex = getIndexOfFirstPartAfter(line, convertMsToStamp(ms, songInfo.bpm));
+        const firstTextLineIndex = getFirstTextPartBefore(line, firstLineIndex);
 
-        const startIdx = getStartIndexOfLineGroup(lines, firstTextLineIndex);
-        const endIdx = getEndIndexOfLineGroup(lines, firstTextLineIndex);
+        const startIdx = getStartIndexOfLine(line, firstTextLineIndex);
+        const endIdx = getEndIndexOfLine(line, firstTextLineIndex);
 
-        return lines.slice(startIdx, endIdx + 1) as TextLine[];
+        return line.slice(startIdx, endIdx + 1) as TextPart[];
     }
 
     return (
@@ -44,11 +44,11 @@ export const Level: React.FC<LevelProps> = ({ songInfo }) => {
                         countFrom={3}
                         onCountdownDone={() => setLevelStarted(true)}>
                     </Countdown>
-                    : <SongPart
-                        lines={getCurrentLines(songInfo.lines, (currentMs - startMs))}
-                        nextLines={getCurrentLines(songInfo.lines, (currentMs - startMs) + 500)}
+                    : <SongScreen
+                        line={getCurrentLine(songInfo.parts, (currentMs - startMs))}
+                        nextLine={getCurrentLine(songInfo.parts, (currentMs - startMs) + 500)}
                         currentMs={(currentMs - startMs)}>
-                    </SongPart>
+                    </SongScreen>
             }
 
             <button onClick={() => history.push('/')}>Back to Menu</button>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { songs } from '../../mock';
-import { analyzeSong, SongInfo } from '../../helpers/analyze-song';
+import { analyzeSong } from '../../helpers/analyze-song';
+import { SongInfo } from '../../interfaces';
 
 interface MainMenuProps {
     onPlay(song: SongInfo): void;

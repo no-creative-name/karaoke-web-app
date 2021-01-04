@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-interface LyricLineProps {
+interface LyricWordProps {
     isActive?: boolean;
     isPreview?: boolean;
 }
 
-export const LyricLine = styled.div<LyricLineProps>`
+export const LyricWord = styled.div<LyricWordProps>`
     display: block;
     font-size: 60px;
     ${props => props.isActive ? `
