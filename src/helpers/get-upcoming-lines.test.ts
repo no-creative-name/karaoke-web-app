@@ -1,7 +1,7 @@
 import { getUpcomingLines } from "./get-upcoming-lines";
 
 describe('getUpcomingLines', () => {
-  test('returns empty array if there are no upcoming lines inside threshold', () => {
+  test('returns empty array if there are no upcoming lines inside lookahead', () => {
     expect(getUpcomingLines(([{
       type: 'text',
       stampMs: 100

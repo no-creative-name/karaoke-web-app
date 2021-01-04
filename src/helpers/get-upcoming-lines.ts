@@ -2,11 +2,11 @@ import { SongPart, TextPart } from "../interfaces";
 import { getEndIndexOfLine } from "./get-end-index-of-line";
 import { getStartIndexOfLine } from "./get-start-index-of-line";
 
-export const getUpcomingLines = (allLines: SongPart[], currentMs: number, thresholdMs: number): TextPart[][] => {
+export const getUpcomingLines = (allLines: SongPart[], currentMs: number, lookaheadMs: number): TextPart[][] => {
   const upcomingIndices: number[] = [];
   allLines.forEach(
     (line, index) => {
-      if (line.stampMs < currentMs + thresholdMs && line.stampMs > currentMs && line.type === 'text') {
+      if (line.stampMs < currentMs + lookaheadMs && line.stampMs > currentMs && line.type === 'text') {
         upcomingIndices.push(index);
       }
     }
