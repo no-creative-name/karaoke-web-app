@@ -11,10 +11,9 @@ export const analyzeSong = (songDefinition: string): SongInfo => {
     const {
         title,
         artist,
-        bpm
+        bpm,
+        gap,
     } = Object.fromEntries(mainInfoArray);
-
-    const gap = '0';
 
     const textParts = lines
         .filter(line => line.charAt(0) !== '#' && line !== '')
