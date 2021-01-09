@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { songs } from '../../mock';
-import { analyzeSong } from '../../helpers/analyze-song';
+import { analyzeSong } from '../../helpers/song-analysis/analyze-song';
 import { SongInfo } from '../../interfaces';
 import styled from 'styled-components';
 import { AbsoluteButton } from '../../components/absolute-button';

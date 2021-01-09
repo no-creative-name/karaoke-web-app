@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { SongScreen } from '../../components/song-screen';
-import { convertMsToStamp } from '../../helpers/convert-ms-to-stamp';
+import { convertMsToStamp } from '../../helpers/conversion/convert-ms-to-stamp';
 import { useHistory } from 'react-router-dom';
 import { Countdown } from '../../components/countdown';
 import { getStartIndexOfLine } from '../../helpers/get-start-index-of-line';
