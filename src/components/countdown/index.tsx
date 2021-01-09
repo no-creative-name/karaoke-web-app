@@ -14,13 +14,17 @@ export const Countdown: React.FC<CountdownProps> = ({ countFrom, onCountdownDone
     const [currentCount, setCurrentCount] = useState<number>(countFrom);
 
     useEffect(() => {
-        setTimeout(() => {
+        const timeout = setTimeout(() => {
             if (currentCount > 1) {
                 setCurrentCount(currentCount - 1);
             } else {
                 onCountdownDone();
             }
-        }, 1000)
+        }, 1000);
+
+        return () => {
+            clearTimeout(timeout);
+        }
     }, [currentCount, onCountdownDone])
 
     return (
