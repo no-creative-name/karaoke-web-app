@@ -3,6 +3,8 @@ import { PitchLine } from '../pitch-line';
 import { LyricWord } from '../lyric-word';
 import styled from 'styled-components';
 import { TextPart } from '../../interfaces';
+import { getTextPartFulfilledAmount } from '../../helpers/get-text-part-fullfilled-amount';
+import { calculateLineDurationWithBuffers } from '../../helpers/calculate-line-duration-with-buffers';
 
 interface SongScreenProps {
     line: TextPart[];
@@ -52,28 +54,8 @@ export const SongScreen: React.FC<SongScreenProps> = ({ line, upcomingLines, cur
         setLowestPitch(pitches.reduce((lowest, current) => current < lowest ? current : lowest, 0));
         setHighestPitch(pitches.reduce((highest, current) => current > highest ? current : highest, 0));
 
-        let totalDuration = 0;
-
-        line.forEach((part, index) => {
-            if (index < line.length - 1) {
-                totalDuration += part.durationMs + (line[index + 1].stampMs - part.stampMs + part.durationMs);
-            } else {
-                totalDuration += part.durationMs;
-            }
-        });
-
-        setTotalDuration(totalDuration);
+        setTotalDuration(calculateLineDurationWithBuffers(line));
     }, [line]);
-
-    const getLinePercentage = (textPart: TextPart): number => {
-        if (textPart.stampMs <= currentMs && textPart.stampMs + textPart.durationMs >= currentMs) {
-            return (currentMs - textPart.stampMs) / textPart.durationMs * 100;
-        } else if (textPart.stampMs > currentMs) {
-            return 0;
-        } else {
-            return 100;
-        }
-    }
 
     return (
         <StyledSongScreen>
@@ -82,7 +64,7 @@ export const SongScreen: React.FC<SongScreenProps> = ({ line, upcomingLines, cur
                     width={`${part.durationMs / totalDuration * 100}%`}
                     marginRight={line[index + 1] ? `${(line[index + 1].stampMs - part.stampMs + part.durationMs) / totalDuration * 100}%` : ''}
                     y={`${-((part.pitch - lowestPitch) / (highestPitch - lowestPitch) * 500)}%`}
-                    percentage={`${getLinePercentage(part)}%`}
+                    percentage={`${getTextPartFulfilledAmount(part, currentMs)}%`}
                     isSpoken={part.isSpoken}
                 ></PitchLine>)}
             </PitchesWrapper>
@@ -90,7 +72,7 @@ export const SongScreen: React.FC<SongScreenProps> = ({ line, upcomingLines, cur
                 <LyricLine>
                     {line.map(part =>
                         <LyricWord
-                            isActive={getLinePercentage(part) > 0}
+                            isActive={getTextPartFulfilledAmount(part, currentMs) > 0}
                         >
                             {part.text}
                         </LyricWord>)}
