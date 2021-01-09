@@ -4,5 +4,8 @@ on: push
 
 jobs:
   test:
-    - run: npm install
-    - run: npm run test
+    name: Run Jest tests
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm install
+      - run: npm run test
